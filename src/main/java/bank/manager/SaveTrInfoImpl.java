@@ -41,7 +41,7 @@ public class SaveTrInfoImpl extends HibernateDaoSupport implements SaveTrInfo {
                 String che = md5.getMD5("che");
                 String ck = md5.getMD5("ck");
                 Object[] argstr = jp.getArgs();
-                double moneytr = standardMoney((double)argstr[1]);
+                double moneytr = standardMoney((Double) argstr[1]);
                 String clientName = (String)argstr[2];
                 clientName = clientName.substring(clientName.indexOf(che)+che.length(),clientName.lastIndexOf(ck));
                 UserBean userBean1 = (UserBean) this.getHibernateTemplate().find("from UserBean as u where u.user = ?0 or u.email = ?1",
@@ -62,7 +62,7 @@ public class SaveTrInfoImpl extends HibernateDaoSupport implements SaveTrInfo {
                 break;
             case "repayment":
                 Object[] argsrepay = jp.getArgs();
-                int terms = (int)argsrepay[1];
+                int terms = (Integer)argsrepay[1];
                 mes = "偿还贷款";
                 LoanBean loanBean = this.getHibernateTemplate().load(LoanBean.class,id);
                 double payMoney = standardMoney(loanBean.getPrincipal()*(1+loanBean.getInterest()/100)*terms);
@@ -76,7 +76,7 @@ public class SaveTrInfoImpl extends HibernateDaoSupport implements SaveTrInfo {
         }
         RecordBean rb = new RecordBean();
         Object[] args = jp.getArgs();
-        double money = standardMoney((double)args[1]);
+        double money = standardMoney((Double) args[1]);
         rb.setUserBean(userBean);
         rb.setMes(mes);
         rb.setMoney(money);

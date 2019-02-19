@@ -1,11 +1,11 @@
 package Actions;
 
 import bank.manager.Manager;
-import flush.CacheFlush;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.xpath.operations.Bool;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +28,7 @@ public class ShowInfoAction extends Action {
         if (session.getAttribute("user")==null){
             return mapping.findForward("back");
         }
-        int id = (int) session.getAttribute("user");
+        int id = (Integer) session.getAttribute("user");
         if (session.getAttribute("pageInfo")==null) {
             session.setAttribute("pageInfo", new HashMap());
         }
@@ -36,13 +36,8 @@ public class ShowInfoAction extends Action {
         * 对每一个用户，根据不同的使用程度，开启线程，按照不同时间刷新缓存
         * 如果等级为最低级的用户，则不需要刷新缓存（甚至可以不使用缓存），因为使用频率低
         * */
-        if (session.getAttribute("online")==null||!(boolean)session.getAttribute("online")){
-            char level = (char)session.getAttribute("level");
-            if (level!='D') {
-                CacheFlush cacheFlush = new CacheFlush(session,manager);
-                cacheFlush.setTime(level);
-                new Thread(cacheFlush).start();
-            }
+        if (session.getAttribute("online")==null||!(Boolean) session.getAttribute("online")){
+            char level = (Character) session.getAttribute("level");
             session.setAttribute("online",true);
         }
         Map map = (Map) session.getAttribute("pageInfo");
@@ -57,7 +52,7 @@ public class ShowInfoAction extends Action {
         if (map.get("maxPages") == null) {
             map.put("maxPages", manager.getMaxPages(id));
         }
-        maxPages = (int) map.get("maxPages");
+        maxPages = (Integer) map.get("maxPages");
         if (map.get(pageId)==null){
             map.put(pageId,manager.getInfo(id,pageId));
         }

@@ -45,7 +45,7 @@ public class OperateDispatchAction extends DispatchAction {
      * */
     public ActionForward inquiry(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("user");
+        int id = (Integer) session.getAttribute("user");
         double money = manager.inquiry(id);
         request.setAttribute("money",money);
         return mapping.findForward("main");
@@ -57,7 +57,7 @@ public class OperateDispatchAction extends DispatchAction {
     public ActionForward deposit(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         OperateActionForm oaf = (OperateActionForm)form;
-        int id = (int)session.getAttribute("user");
+        int id = (Integer)session.getAttribute("user");
         String deposit = oaf.getDeposit();
         double money = Double.parseDouble(deposit);
         manager.deposit(id,money);
@@ -73,7 +73,7 @@ public class OperateDispatchAction extends DispatchAction {
         OperateActionForm oaf = (OperateActionForm)form;
         String withdrawals = oaf.getWithdrawals();
         double money = Double.parseDouble(withdrawals);
-        int id = (int) session.getAttribute("user");
+        int id = (Integer) session.getAttribute("user");
         manager.withdrawals(id,money);
         request.setAttribute("money",manager.inquiry(id));
         return mapping.findForward("main");
@@ -87,7 +87,7 @@ public class OperateDispatchAction extends DispatchAction {
         OperateActionForm oaf = (OperateActionForm)form;
         String transuser = oaf.getTransuser();
         String transmoney = oaf.getTransmoney();
-        int id = (int)session.getAttribute("user");
+        int id = (Integer) session.getAttribute("user");
         double money = Double.parseDouble(transmoney);
         manager.transfer(id,money,transuser);
         request.setAttribute("money",manager.inquiry(id));
@@ -96,7 +96,7 @@ public class OperateDispatchAction extends DispatchAction {
 
     public ActionForward loan(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
-        int id = (int)session.getAttribute("user");
+        int id = (Integer)session.getAttribute("user");
         LoanInfo loanInfo = manager.getLoanInfo(id);
         request.setAttribute("loanInfo",loanInfo);
         return mapping.findForward("loan");

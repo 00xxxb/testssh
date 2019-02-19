@@ -34,14 +34,14 @@ public class LoanAction extends DispatchAction {
         OperateActionForm oaf = (OperateActionForm)form;
         int time = oaf.getPasttime();
         double loanmoney = oaf.getLoanmoney();
-        int id = (int)session.getAttribute("user");
+        int id = (Integer) session.getAttribute("user");
         manager.loan(id,loanmoney,time);
         return mapping.findForward("loanInfo");
     }
 
     public ActionForward payback(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
-        int id = (int)session.getAttribute("user");
+        int id = (Integer) session.getAttribute("user");
         int terms = Integer.parseInt(request.getParameter("terms"));
         manager.repayment(id,terms);
         return mapping.findForward("loanInfo");

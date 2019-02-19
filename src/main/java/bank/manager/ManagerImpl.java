@@ -246,7 +246,7 @@
                     new Object[]{name,email}).iterator();
             int id;
             if (iterator.hasNext()){
-                id = (int)iterator.next();
+                id = (Integer)iterator.next();
             }
             else {
                 id = -1;
