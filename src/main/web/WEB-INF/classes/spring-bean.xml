@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <aop:aspectj-autoproxy/>
+
+    <bean id="manager" class="bank.manager.ManagerImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="getDao" ref="dao"/>
+    </bean>
+
+    <bean id="dao" class="bank.dao.BankDaoImpl">
+        <property name="path" value="aaa"/>
+    </bean>
+
+    <bean id="trInfo" class="bank.manager.SaveTrInfoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="permission" class="bank.manager.PermissionValidation">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+</beans>

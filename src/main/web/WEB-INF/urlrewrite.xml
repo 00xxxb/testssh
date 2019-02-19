@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"
+        "http://tuckey.org/res/dtds/urlrewrite3.1.dtd">
+<urlrewrite>
+    <rule>
+        <note>
+            The rule means that requests to /test/status/ will be redirected to /rewrite-status
+            the url will be rewritten.
+        </note>
+
+        <!--<from>^/vweb/view/index\-([0-9]+)$</from>-->
+        <from>^/(\w+)\.html$</from>
+        <to>/$1.do</to>
+
+    </rule>
+
+    <rule>
+        <from>^/jiadeChangeLan/(\w+)\.html$</from>
+        <to>/changelan.do?lan=$1</to>
+    </rule>
+
+
+    <rule>
+        <!--<from>/nomoney.html?$</from>-->
+        <!--<to>/operate.do?$1</to>-->
+
+        <!--<from>^/(\w+)/[a-zA-Z]*/(\w+)\.html$</from>-->
+        <!--<to>/$1.do?mehtod=$2&amp;pamra=$3</to>-->
+
+        <from>^/nomoney/(\w+)\.html$</from>
+        <to>/operate.do?method=$1</to>
+    </rule>
+
+    <rule>
+        <from>^/trinfo/(\w*)\.html$</from>
+        <to>/showInfo.do?page=$1</to>
+    </rule>
+
+    <rule>
+        <from>^/loan/(\w+)\.html$</from>
+        <to>/loan.do?me=$1</to>
+    </rule>
+
+
+</urlrewrite>

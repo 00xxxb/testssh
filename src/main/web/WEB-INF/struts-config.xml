@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+        "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+
+    <form-beans>
+        <form-bean name="operate" type="ActionForms.OperateActionForm"/>
+    </form-beans>
+
+    <global-exceptions>
+        <exception type="bank.util.UsernameExistException" key="user.name.exist" path="/RegisterDemo.jsp"/>
+        <exception type="bank.util.UserNotExistException" key="user.not.found"/>
+        <exception type="bank.util.WrongPasswordException" key="user.password.error" path="/Login.jsp"/>
+        <exception type="bank.util.IllegalOperateException" path="Login.jsp" key="IllegalOperateException"/>
+        <exception type="bank.util.FrozenUserException" path="/nomoney/inquiry.html" key="Frozen.User"/>
+    </global-exceptions>
+
+    <global-forwards>
+        <forward name="back" path="/goLogin.html" redirect="true"/>
+        <forward name="index" path="/index.html" redirect="true"/>
+        <forward name="main" path="/WEB-INF/jsp/BankMain.jsp"/>
+        <forward name="loan" path="/WEB-INF/jsp/loan.jsp"/>
+    </global-forwards>
+
+    <action-mappings>
+        <action path="/index" forward="/index.jsp"/>
+        <action path="/goLogin" forward="/Login.jsp"/>
+        <action path="/goRegister" forward="/RegisterDemo.jsp"/>
+        <action path="/verify" type="org.springframework.web.struts.DelegatingActionProxy" parameter="me"/>
+        <action path="/register" name="operate" validate="false" type="org.springframework.web.struts.DelegatingActionProxy">
+            <forward name="reSuccess" path="/SuccessRegister.jsp"/>
+        </action>
+        <action path="/login" name="operate" validate="false" type="org.springframework.web.struts.DelegatingActionProxy" input="/Login.jsp"/>
+        <action path="/operate" type="org.springframework.web.struts.DelegatingActionProxy" name="operate" validate="false"
+                parameter="method" input="/WEB-INF/jsp/BankMain.jsp">
+            <exception type="java.lang.NumberFormatException" key="number.error"/>
+            <exception type="bank.util.InvalidDepositException" key="money.negative.number"/>
+            <exception type="bank.util.AccountOverDrawnException" key="money.overamount"/>
+        </action>
+        <action path="/changelan" type="org.springframework.web.struts.DelegatingActionProxy"/>
+        <action path="/showInfo" type="org.springframework.web.struts.DelegatingActionProxy">
+            <forward name="showInfo" path="/WEB-INF/jsp/Trinfo.jsp"/>
+        </action>
+        <action path="/loan" type="org.springframework.web.struts.DelegatingActionProxy" name="operate" parameter="me" input="/nomoney/loan.html">
+            <exception type="bank.util.AccountOverDrawnException" key="money.overamount"/>
+            <forward name="loanInfo" path="/nomoney/loan.html"/>
+        </action>
+    </action-mappings>
+
+    <message-resources parameter="res.MessageResources"/>
+
+</struts-config>
