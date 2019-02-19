@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="bank.model">
+    <class name="LoanBean" table="loan">
+        <id name="userId">
+            <generator class="foreign">
+                <param name="property">userBean</param>
+            </generator>
+        </id>
+        <property name="leftAmount">
+            <column name="leftamount" default="5000" sql-type="double"/>
+        </property>
+        <property name="duration">
+            <column name="duration" sql-type="int" default="0"/>
+        </property>
+        <property name="principal"/>
+        <property name="loantime">
+            <column name="loandate" sql-type="timestamp"/>
+        </property>
+        <property name="paytime">
+            <column name="paydate" sql-type="timestamp"/>
+        </property>
+        <property name="period"/>
+        <property name="interest">
+            <column name="interest" sql-type="double" default="0"/>
+        </property>
+        <one-to-one name="userBean" constrained="true"/>
+    </class>
+
+</hibernate-mapping>

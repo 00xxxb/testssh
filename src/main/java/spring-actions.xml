@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="verify" name="/verify" class="Actions.VerifyAction" scope="prototype">
+        <property name="manager" ref="manager"/>
+    </bean>
+    
+    <bean id="register" name="/register" scope="prototype" class="Actions.RegisterAction">
+        <property name="manager" ref="manager"/>
+    </bean>
+    
+    <bean id="login" name="/login" class="Actions.LoginAction" scope="prototype">
+        <property name="manager" ref="manager"/>
+    </bean>
+    
+    <bean id="operate" name="/operate" scope="prototype" class="Actions.OperateDispatchAction">
+        <property name="manager" ref="manager"/>
+    </bean>
+    
+    <bean id="changelan" name="/changelan" class="Actions.ChangeLanguageAction" scope="prototype"/>
+    
+    <bean id="showInfo" name="/showInfo" class="Actions.ShowInfoAction" scope="prototype">
+        <property name="manager" ref="manager"/>
+    </bean>
+    
+    <bean id="loan" name="/loan" class="Actions.LoanAction" scope="prototype">
+        <property name="manager" ref="manager"/>
+    </bean>
+</beans>
