@@ -16,10 +16,7 @@
     import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
     import java.sql.Timestamp;
-    import java.util.Date;
-    import java.util.Iterator;
-    import java.util.List;
-    import java.util.Map;
+    import java.util.*;
     import java.util.concurrent.ConcurrentHashMap;
 
     /**
@@ -201,17 +198,17 @@
             }
             HibernateTemplate hibernateTemplate = this.getHibernateTemplate();
             int finalPage = (page-1)*8;
-            List list = hibernateTemplate.execute(new HibernateCallback<List>() {
-                @Override
-                public List doInHibernate(Session session) throws HibernateException {
-                    Query query = session.createQuery("from RecordBean r where r.userBean.id = :id");
-                    query.setParameter("id",id);
-                    query.setMaxResults(8);
-                    query.setFirstResult(finalPage);
-                    return query.list();
-                }
-            });
-            return list;
+//            List list = hibernateTemplate.execute(new HibernateCallback<List>() {
+//                @Override
+//                public List doInHibernate(Session session) throws HibernateException {
+//                    Query query = session.createQuery("from RecordBean r where r.userBean.id = :id");
+//                    query.setParameter("id",id);
+//                    query.setMaxResults(8);
+//                    query.setFirstResult(finalPage);
+//                    return query.list();
+//                }
+//            });
+            return new ArrayList();
         }
 
         /**
