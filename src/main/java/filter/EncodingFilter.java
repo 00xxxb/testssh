@@ -1,24 +1,22 @@
 package filter;
 
-import javax.servlet.*;
+import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import java.io.IOException;
 
 /**
  * 编码格式拦截器
  * @author 22222jh
  * */
-public class EncodingFilter implements Filter {
+public class EncodingFilter extends UrlRewriteFilter {
 
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException  {
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        chain.doFilter(req,resp);
-    }
-
-    public void destroy() {
-
+        super.doFilter(req,resp,chain);
     }
 }
